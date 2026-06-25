@@ -9,7 +9,7 @@ class SlotController {
     const { date } = req.query as { date?: string }
 
     if (!date) {
-      throw new ErrorBadRequest("date query parameter is required")
+      throw new ErrorBadRequest("Параметр date обязателен")
     }
 
     const slots = await slotService.getSlotsByDate(date)
@@ -21,6 +21,14 @@ class SlotController {
     const { title, startTime, endTime } = req.body
 
     const slot = await slotService.createSlot({ title, startTime, endTime })
+
+    return successResponse("success", { slot }, reply)
+  }
+
+  async delete(req: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) {
+    const { id } = req.params
+
+    const slot = await slotService.deleteSlot(id)
 
     return successResponse("success", { slot }, reply)
   }

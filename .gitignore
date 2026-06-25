@@ -10,9 +10,6 @@ node_modules
 **/storage
 **/logs
 **/*.log
-**/mongodb-keyfile
-**/mongodb_data
 **/*.tar.xz
 data
 start.sh
-**/.next

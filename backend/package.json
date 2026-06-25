@@ -27,6 +27,7 @@
   "devDependencies": {
     "@types/csso": "^5.0.4",
     "@types/node": "^22.15.17",
+    "@types/pg": "^8.20.0",
     "@types/serialize-error": "^4.0.1",
     "@types/ws": "^8.18.1",
     "drizzle-kit": "^0.31.10",

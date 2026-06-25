@@ -15,5 +15,9 @@ export default class SlotModule {
         server.post('/api/slots', {
             handler: slotController.create,
         })
+
+        server.delete('/api/slots/:id', {
+            handler: slotController.delete,
+        })
     }
 }
