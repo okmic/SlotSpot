@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: slotspot_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=_password
+      - POSTGRES_DB=slotspot
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - slotspot-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d slotspot"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: backend
+    environment:
+      MODE: docker
+      DATABASE_URL: "postgresql://admin:_password@postgres:5432/slotspot"
+      PORT: 9999
+    ports:
+      - "9999:9999"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - slotspot-network
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    environment:
+      NODE_ENV: development
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - slotspot-network
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+
+networks:
+  slotspot-network:
+    driver: bridge

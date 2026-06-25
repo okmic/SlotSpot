@@ -1,18 +1,28 @@
 # SlotSpot
-## Backend
+Сервис бронирования временных слотов.
 
-- **Node.js** + **TypeScript**
-- **Fastify** — HTTP-фреймворк
-- **Drizzle ORM** — работа с базой данных
-- **PostgreSQL 15** — база данных
-- **Docker** — контейнеризация
-
-# PostgreSQL 15 разворачивается в Docker-контейнере:
+## Запуск
 
 ```bash
-cd ./pkg/ecosystem
 docker compose up -d
-
 ```
 
+## Стек
+**Backend:** Node.js, TypeScript, Fastify, Drizzle ORM, PostgreSQL 15
+**Frontend:** React, Vite, TypeScript, Tailwind CSS
 
+## API
+
+| Метод | URL | Описание |
+|-------|-----|----------|
+| `GET` | `/api/slots?date=YYYY-MM-DD` | Слоты за день |
+| `POST` | `/api/slots` | Создать слот |
+| `DELETE` | `/api/slots/:id` | Удалить слот |
+
+## Порты
+
+| Сервис | Порт |
+|--------|------|
+| Фронтенд | `5173` |
+| Бэкенд | `9999` |
+| База | `5432` |
