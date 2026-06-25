@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "server:dev": "nodemon --watch src --ext ts --ignore src/**/*.json --exec \"ts-node src/entrypoints/server.ts\"",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "generate": "drizzle-kit generate --config drizzle.config.ts",
+    "migrate": "tsx src/pkg/db/migrate.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.0.1",
